@@ -3,11 +3,14 @@ import { PokemonService } from './pokemon.service';
 import { PokemonController } from './pokemon.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Pokemon, PokemonSchema } from './entities/pokemon.entity';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   controllers: [PokemonController],
   providers: [PokemonService],
   imports:[
+    // Tenemos que importar el config module para utilizar las varibales de entorno
+    ConfigModule,
     MongooseModule.forFeature(
       [
         {
@@ -16,6 +19,7 @@ import { Pokemon, PokemonSchema } from './entities/pokemon.entity';
         }
       ]
     )
-  ]
+  ],
+  exports: [MongooseModule]
 })
 export class PokemonModule {}
